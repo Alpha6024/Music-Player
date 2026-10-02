@@ -1,22 +1,34 @@
 # Music Inspiration Player
 
-A premium, production-quality music player built with HTML5, CSS3, and Vanilla JavaScript.
+A premium, production-quality music player built with HTML5, CSS3, and Vanilla JavaScript, integrated with Supabase for a shared cloud playlist.
 
 ## Features
-- **Local File Import:** Add your own `.mp3`, `.wav`, or `.ogg` files via the "+ IMPORT MUSIC" button or by dragging and dropping them into the player.
-- **Realistic Vinyl:** Features a rotating vinyl record that responds to playback state.
+- **Cloud Database & Storage:** Powered by Supabase. Uploaded songs are securely stored in the cloud, and everyone who visits the site sees the same shared playlist.
+- **Optimistic UI:** Uploading a song instantly adds it to your player locally so you can play it immediately while the upload seamlessly completes in the background. 
+- **Song Deletion:** Remove songs from the playlist, which cleanly deletes the record from the database and the actual audio file from the storage bucket.
+- **Realistic Vinyl:** Features a dynamic rotating vinyl record that responds to playback state.
 - **Full Playback Controls:** Play, pause, previous, next, shuffle, and repeat.
 - **Custom Progress Bar:** Interactive and smooth seeking.
-- **Playlist Management:** Automatically populates with imported tracks. Supports search and genre filtering.
-- **Favorites:** Mark tracks as favorites (saved locally).
-- **Responsive Design:** Optimized layout for both desktop and mobile devices.
+- **Responsive Design:** Optimized layout for both desktop and mobile devices, utilizing a sliding playlist drawer on mobile.
 
-## How to Run
-1. Open the `music-player` folder.
-2. Double-click on `index.html` to open it in any modern web browser.
-3. No server or backend is required! Everything runs locally in your browser.
+## Supabase Configuration
+To run this project yourself or deploy it, you'll need to configure Supabase:
+1. Create a Supabase project.
+2. Create a table named `songs` in the `public` schema with columns: `id` (uuid), `title` (text), `artist` (text), `album` (text), `duration` (numeric), `file_path` (text), and `file_url` (text).
+3. Create a Storage bucket named `music`.
+4. Ensure you have set up proper Row Level Security (RLS) policies for both the `songs` table and the `music` bucket to allow `INSERT`, `SELECT`, and `DELETE` operations.
 
-## Architecture
-- **HTML5 (index.html):** Semantic structure using `<main>`, `<aside>`, and native `<audio>` (via JS).
-- **CSS3 (style.css):** Custom properties (variables) for consistent theming. Flexbox used for responsive layout. CSS animations handle the smooth vinyl rotation.
-- **Vanilla JS (script.js):** Manages application state, the Web Audio API (`new Audio()`), file importing (Object URLs), and DOM updates without any external libraries.
+## How to Run Locally
+1. Clone the repository.
+2. Since it uses Supabase over the network, it's recommended to run a simple local web server to avoid browser `file://` CORS issues. 
+   - Python: `python -m http.server 3000`
+   - Node: `npx serve .`
+3. Navigate to `http://localhost:3000` in your browser.
+
+## Deployment (GitHub Pages)
+This project consists purely of static frontend files (`index.html`, `style.css`, `script.js`), making it incredibly easy to host on GitHub Pages:
+1. Go to the Settings tab of your GitHub repository.
+2. On the left sidebar, click on **Pages**.
+3. Under **Source**, select `Deploy from a branch`.
+4. Under **Branch**, select `main` (or your default branch) and `/ (root)` folder, then click **Save**.
+5. Wait a few minutes for the GitHub Actions pipeline to deploy your site. Your music player will be live at `https://<your-username>.github.io/<your-repo-name>/`!
