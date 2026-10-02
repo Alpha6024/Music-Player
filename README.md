@@ -2,6 +2,9 @@
 
 A premium, production-quality music player built with HTML5, CSS3, and Vanilla JavaScript, integrated with Supabase for a shared cloud playlist.
 
+<img width="1915" height="919" alt="image" src="https://github.com/user-attachments/assets/e6b3a7a9-9338-4f06-b1be-236e83c284b3" />
+
+
 ## Features
 - **Cloud Database & Storage:** Powered by Supabase. Uploaded songs are securely stored in the cloud, and everyone who visits the site sees the same shared playlist.
 - **Optimistic UI:** Uploading a song instantly adds it to your player locally so you can play it immediately while the upload seamlessly completes in the background. 
